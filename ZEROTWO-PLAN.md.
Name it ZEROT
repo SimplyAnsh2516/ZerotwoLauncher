@@ -1,0 +1,57 @@
+ZeroTwo Launcher — Development Plan
+
+Project
+
+An Android launcher for Minecraft Java Edition, based on Zalith Launcher.
+
+Design
+
+- Dark black and plum interface
+- Crimson and neon-pink accents
+- Zero Two-inspired artwork
+- Landscape-first layout
+- Custom navigation and launcher dashboard
+
+Accounts
+
+- Microsoft account login
+- Offline profiles
+- Multiple local profiles
+
+Minecraft
+
+- Version support targeting 26.2 and 26.3
+- Support for older versions where compatible
+- Java runtime management
+- Per-version settings
+
+Mod Hub
+
+- Sodium and Sodium Extra
+- Lithium and FerriteCore
+- ImmediatelyFast and Entity Culling
+- Compatibility and dependency checks
+- Performance presets
+
+Other Features
+
+- Modpack manager
+- Download manager
+- Touch-control editor
+- Crash log analyzer
+- World backups
+- Resource-pack manager
+- Skin studio
+- Screenshot gallery
+- Performance overlay
+- Custom Minecraft main menu and pause menu
+
+Restrictions
+
+- No shaders or shader manager.
+- Preserve existing Zalith Launcher functionality.
+- Respect mod licenses and download sources.
+
+Status
+
+Planning and source integration in progress. Features are not yet implemented or tested.
