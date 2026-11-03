@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "zerotwo_menu",
+  "version": "${version}",
+  "name": "ZeroTwo Menu",
+  "description": "A ZeroTwo-themed title and pause menu for ZeroTwo Launcher.",
+  "authors": ["ZeroTwo Launcher"],
+  "environment": "client",
+  "entrypoints": { "client": ["dev.zerotwo.menu.ZeroTwoMenu"] },
+  "depends": { "fabricloader": ">=0.19.5", "minecraft": "~26.3", "java": ">=25", "fabric-api": "*" }
+}
