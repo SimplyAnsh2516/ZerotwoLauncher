@@ -26,9 +26,13 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools'
 
       - name: Install Android build tools
         run: |
+          export JAVA_HOME="$JAVA_HOME_17_X64"
+          export PATH="$JAVA_HOME/bin:$PATH"
           yes | sdkmanager --licenses || true
           sdkmanager --install \
             "platforms;android-34" \
@@ -49,3 +53,4 @@ jobs:
           name: ZeroTwo-Launcher-Debug-APK
           path: ZalithLauncher/build/outputs/apk/debug/*.apk
           if-no-files-found: error
+
