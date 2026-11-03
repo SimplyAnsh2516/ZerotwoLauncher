@@ -4,6 +4,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
+import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
+import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.minecraft.network.chat.Component;
 
 public final class ZeroTwoMenuScreen extends Screen {
@@ -24,13 +27,13 @@ public final class ZeroTwoMenuScreen extends Screen {
                 button -> Minecraft.getInstance().setScreen(parent))
                 .bounds(left, top, buttonWidth, 24).build());
         addRenderableWidget(Button.builder(Component.literal("SINGLEPLAYER"),
-                button -> status = "Choose Singleplayer from the vanilla menu to load your worlds.")
+                button -> Minecraft.getInstance().setScreen(new SelectWorldScreen(this)))
                 .bounds(left, top + 30, buttonWidth, 22).build());
         addRenderableWidget(Button.builder(Component.literal("MULTIPLAYER"),
-                button -> status = "Choose Multiplayer from the vanilla menu to join a server.")
+                button -> Minecraft.getInstance().setScreen(new JoinMultiplayerScreen(this)))
                 .bounds(left, top + 57, buttonWidth, 22).build());
-        addRenderableWidget(Button.builder(Component.literal("MODS  •  RESOURCE PACKS"),
-                button -> status = "Manage installed mods and resource packs from the game menu.")
+        addRenderableWidget(Button.builder(Component.literal("SETTINGS"),
+                button -> Minecraft.getInstance().setScreen(new OptionsScreen(this, Minecraft.getInstance().options)))
                 .bounds(left, top + 84, buttonWidth, 22).build());
         addRenderableWidget(Button.builder(Component.literal("CLOSE"),
                 button -> Minecraft.getInstance().setScreen(parent))
