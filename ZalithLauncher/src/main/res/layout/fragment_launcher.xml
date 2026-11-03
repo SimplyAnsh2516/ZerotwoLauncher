@@ -290,6 +290,8 @@
 
                 <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
                     android:id="@+id/version"
+                    android:background="@drawable/zerotwo_panel"
+                    android:paddingEnd="@dimen/_4sdp"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_38sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
@@ -362,6 +364,9 @@
 
                 <com.movtery.zalithlauncher.ui.view.AnimButton
                     android:id="@+id/play_button"
+                    android:background="@drawable/zerotwo_play_button"
+                    android:textColor="#FFFFFFFF"
+                    android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_8sdp"
