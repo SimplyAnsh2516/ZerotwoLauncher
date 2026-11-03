@@ -1,0 +1,42 @@
+name: Build ZeroTwo Minecraft Menu Mod
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'ZeroTwoMenuMod/**'
+      - '.github/workflows/build-zerotwo-mod.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-fabric-mod:
+    name: Build Fabric 26.3 mod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.6.0'
+
+      - name: Build mod JAR
+        working-directory: ZeroTwoMenuMod
+        run: gradle --no-daemon build
+
+      - name: Upload mod JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZeroTwo-Menu-Fabric-26.3
+          path: ZeroTwoMenuMod/build/libs/zerotwo-menu-*.jar
+          if-no-files-found: error
