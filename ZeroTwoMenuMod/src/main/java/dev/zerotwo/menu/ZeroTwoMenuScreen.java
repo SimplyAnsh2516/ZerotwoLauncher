@@ -9,9 +9,12 @@ import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.minecraft.network.chat.Component;
 
+/**
+ * The in-game ZeroTwo hub. Navigation delegates to Minecraft's real screens;
+ * this screen owns only the visual shell and never replaces world/network data.
+ */
 public final class ZeroTwoMenuScreen extends Screen {
     private final Screen parent;
-    private String status = "WELCOME BACK, DARLING.";
 
     public ZeroTwoMenuScreen(Screen parent) {
         super(Component.literal("ZERO TWO"));
@@ -20,33 +23,52 @@ public final class ZeroTwoMenuScreen extends Screen {
 
     @Override
     protected void init() {
-        int buttonWidth = Math.min(220, this.width - 32);
+        int buttonWidth = Math.min(236, this.width - 40);
         int left = (this.width - buttonWidth) / 2;
-        int top = Math.max(72, this.height / 2 - 66);
-        addRenderableWidget(Button.builder(Component.literal("RETURN TO GAME / MENU"),
-                button -> Minecraft.getInstance().setScreen(parent))
-                .bounds(left, top, buttonWidth, 24).build());
-        addRenderableWidget(Button.builder(Component.literal("SINGLEPLAYER"),
-                button -> Minecraft.getInstance().setScreen(new SelectWorldScreen(this)))
-                .bounds(left, top + 30, buttonWidth, 22).build());
-        addRenderableWidget(Button.builder(Component.literal("MULTIPLAYER"),
-                button -> Minecraft.getInstance().setScreen(new JoinMultiplayerScreen(this)))
-                .bounds(left, top + 57, buttonWidth, 22).build());
-        addRenderableWidget(Button.builder(Component.literal("SETTINGS"),
-                button -> Minecraft.getInstance().setScreen(new OptionsScreen(this, Minecraft.getInstance().options)))
-                .bounds(left, top + 84, buttonWidth, 22).build());
-        addRenderableWidget(Button.builder(Component.literal("CLOSE"),
-                button -> Minecraft.getInstance().setScreen(parent))
-                .bounds(left, top + 116, buttonWidth, 20).build());
+        int buttonHeight = 22;
+        int gap = 7;
+        int total = buttonHeight * 5 + gap * 4;
+        int top = Math.max(58, (this.height - total) / 2 + 12);
+
+        addRenderableWidget(Button.builder(Component.literal("RESUME"), button ->
+                Minecraft.getInstance().setScreen(parent))
+                .bounds(left, top, buttonWidth, buttonHeight).build());
+        addRenderableWidget(Button.builder(Component.literal("SINGLEPLAYER"), button ->
+                Minecraft.getInstance().setScreen(new SelectWorldScreen(this)))
+                .bounds(left, top + (buttonHeight + gap), buttonWidth, buttonHeight).build());
+        addRenderableWidget(Button.builder(Component.literal("MULTIPLAYER"), button ->
+                Minecraft.getInstance().setScreen(new JoinMultiplayerScreen(this)))
+                .bounds(left, top + (buttonHeight + gap) * 2, buttonWidth, buttonHeight).build());
+        addRenderableWidget(Button.builder(Component.literal("OPTIONS"), button ->
+                Minecraft.getInstance().setScreen(new OptionsScreen(this, Minecraft.getInstance().options)))
+                .bounds(left, top + (buttonHeight + gap) * 3, buttonWidth, buttonHeight).build());
+        addRenderableWidget(Button.builder(Component.literal("BACK TO VANILLA MENU"), button ->
+                Minecraft.getInstance().setScreen(parent))
+                .bounds(left, top + (buttonHeight + gap) * 4, buttonWidth, buttonHeight).build());
     }
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-        graphics.fill(0, 0, this.width, this.height, 0xE9140912);
-        graphics.fill(0, 0, this.width, 5, 0xFFFF2F78);
-        graphics.drawCenteredString(this.font, Component.literal("ZERO TWO"), this.width / 2, Math.max(18, this.height / 2 - 112), 0xFFFF4F91);
-        graphics.drawCenteredString(this.font, Component.literal("MINECRAFT  •  ANDROID EDITION"), this.width / 2, Math.max(36, this.height / 2 - 92), 0xFFE9DCE3);
-        graphics.drawCenteredString(this.font, Component.literal(status), this.width / 2, this.height - 28, 0xFFFFB5CE);
+        // Layered plum backdrop and crimson accents, drawn without external assets.
+        graphics.fill(0, 0, this.width, this.height, 0xFF100812);
+        graphics.fill(0, 0, this.width, this.height / 3, 0xFF1B0B19);
+        graphics.fill(0, this.height - 5, this.width, this.height, 0xFFFF347C);
+        graphics.fill(0, 0, 5, this.height, 0xFFFF347C);
+
+        int cardWidth = Math.min(330, this.width - 20);
+        int cardLeft = (this.width - cardWidth) / 2;
+        int cardTop = Math.max(8, this.height / 2 - 112);
+        int cardBottom = Math.min(this.height - 8, this.height / 2 + 112);
+        graphics.fill(cardLeft - 2, cardTop - 2, cardLeft + cardWidth + 2, cardBottom + 2, 0xFF6E2446);
+        graphics.fill(cardLeft, cardTop, cardLeft + cardWidth, cardBottom, 0xE91A0D1B);
+
+        graphics.drawCenteredString(this.font, Component.literal("ZERO TWO"),
+                this.width / 2, Math.max(14, cardTop + 12), 0xFFFF4F91);
+        graphics.drawCenteredString(this.font, Component.literal("DARLING IN THE FRANXX  •  MINECRAFT"),
+                this.width / 2, Math.max(29, cardTop + 29), 0xFFE8C8D7);
+        graphics.drawCenteredString(this.font, Component.literal("CHOOSE YOUR NEXT ADVENTURE"),
+                this.width / 2, Math.min(this.height - 16, cardBottom - 15), 0xFFFFA8C5);
+
         super.render(graphics, mouseX, mouseY, delta);
     }
 
