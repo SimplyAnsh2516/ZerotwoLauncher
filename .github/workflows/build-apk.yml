@@ -4,6 +4,8 @@ name: Build Android APK
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ main ]
 
 permissions:
   contents: read
@@ -58,6 +60,11 @@ jobs:
           export PATH="$JAVA_HOME/bin:$PATH"
           chmod +x ./gradlew
           ./gradlew --no-daemon :ZalithLauncher:assembleDebug
+
+      - name: Verify APK output
+        run: |
+          test -s ZalithLauncher/build/outputs/apk/debug/*.apk
+          ls -lh ZalithLauncher/build/outputs/apk/debug/*.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
