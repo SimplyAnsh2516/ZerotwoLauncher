@@ -20,8 +20,10 @@ jobs:
 
       - name: Download Zalith source
         run: |
-          git clone --depth 1 --branch 1.4.1.4 \
-            https://github.com/ZalithLauncher/ZalithLauncher.git upstream
+          git init upstream
+          git -C upstream remote add origin https://github.com/ZalithLauncher/ZalithLauncher.git
+          git -C upstream fetch --depth 1 origin 6550846bb8e9496d8c83ed8b3b8d924a1e7b3e1d
+          git -C upstream checkout --detach FETCH_HEAD
 
       - name: Import source files
         run: |
@@ -46,4 +48,3 @@ jobs:
             git commit -m "Import Zalith Launcher 1.4.1.4 source"
             git push origin HEAD:main
           fi
-          
